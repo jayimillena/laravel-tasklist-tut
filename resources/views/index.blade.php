@@ -9,7 +9,7 @@
     <div>
         @if(count($tasks))
             @foreach ($tasks as $task)
-                <a href="{{ route('tasks.show', ['id' => $task->id]) }}">{{ $task->title }}</a>
+                <a href="{{ route('tasks.show', ['id' => $task->id]) }}">{{ $task->title }}</a> <br>
             @endforeach
         @else
             <div>There are no task!</div>

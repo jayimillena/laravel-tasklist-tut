@@ -30,7 +30,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        dd('We have reached this Controller');
+        dd($request)
 
         return view('index', [
             'tasks' => Task::all()

@@ -30,10 +30,20 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request)
+        $data = $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'long_description' => 'required'
+        ]);
 
-        return view('index', [
-            'tasks' => Task::all()
+        $task = new Task;
+        $task->title = $data['title'];
+        $task->description = $data['description'];
+        $task->long_description = $data['long_description'];
+        $task->save();
+
+        return redirect()->route('tasks.show', [
+            'id' => $task->id
         ]);
     }
 
@@ -42,7 +52,7 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        $task = Task::find($id)->first();
+        $task = Task::where('id', $id)->first();
 
         return view('show', [
             'task' => $task

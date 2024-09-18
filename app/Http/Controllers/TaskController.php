@@ -44,7 +44,7 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.show', [
             'id' => $task->id
-        ]);
+        ])->with('success', 'Task has been created succesfuly!');
     }
 
     /**
@@ -52,7 +52,7 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        $task = Task::where('id', $id)->first();
+        $task = Task::find($id);
 
         return view('show', [
             'task' => $task

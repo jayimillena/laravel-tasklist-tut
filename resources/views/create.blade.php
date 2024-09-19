@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title', 'Add Task')
-
 @section('styles')
     <style>
         .error-message {

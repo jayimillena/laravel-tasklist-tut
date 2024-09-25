@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\{Request, Response};
+use App\Http\Requests\TaskRequest;
 use App\Models\Task;
 
 class TaskController extends Controller
@@ -28,32 +28,20 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $data = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'long_description' => 'required'
-        ]);
-
-        $task = new Task;
-        $task->title = $data['title'];
-        $task->description = $data['description'];
-        $task->long_description = $data['long_description'];
-        $task->save();
+        $task = Task::create($request->validated());
 
         return redirect()->route('tasks.show', [
-            'id' => $task->id
+            'task' => $task
         ])->with('success', 'Task has been created succesfuly!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Task $task)
     {
-        $task = Task::find($id);
-
         return view('show', [
             'task' => $task
         ]);
@@ -62,32 +50,22 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Task $task)
     {
         return view('edit', [
-            'task' => Task::find($id)
+            'task' => $task
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Task $task, TaskRequest $request)
     {
-        $data = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'long_description' => 'required'
-        ]);
-
-        $task = Task::find($id);
-        $task->title = $data['title'];
-        $task->description = $data['description'];
-        $task->long_description = $data['long_description'];
-        $task->save();
+        $task->update($request->validated());
 
         return redirect()->route('tasks.show', [
-            'id' => $task->id
+            'task' => $task->id
         ])->with('success', 'Task has been updated succesfuly!');
     }
 

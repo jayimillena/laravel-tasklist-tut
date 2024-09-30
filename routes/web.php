@@ -10,4 +10,5 @@ Route::post('/task/store', [TaskController::class, 'store'])->name('task.store')
 Route::get('/task/edit/{task}', [TaskController::class, 'edit'])->name('task.edit');
 Route::put('/task/update/{task}', [TaskController::class, 'update'])->name('task.update');
 Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
+Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 

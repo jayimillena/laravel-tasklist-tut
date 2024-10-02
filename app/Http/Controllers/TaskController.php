@@ -13,7 +13,7 @@ class TaskController extends Controller
     public function index()
     {
         return view('index', [
-            'tasks' => Task::all()
+            'tasks' => Task::latest()->get()
         ]);
     }
 

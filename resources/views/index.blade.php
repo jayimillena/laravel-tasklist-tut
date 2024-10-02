@@ -11,12 +11,15 @@
     </div>
 
     <div>
-        @if(count($tasks))
-            @foreach ($tasks as $task)
+        @forelse ($tasks as $task)
+            <div>
                 <a href="{{ route('tasks.show', ['task' => $task]) }}">{{ $task->title }}</a> <br>
-            @endforeach
-        @else
+            </div>
+        @empty
             <div>There are no task!</div>
-        @endif
+        @endforelse
+    </div>
+    <div>
+        {{ $tasks->links() }}
     </div>
 @endsection

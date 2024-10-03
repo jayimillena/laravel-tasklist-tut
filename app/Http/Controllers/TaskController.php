@@ -7,6 +7,12 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
+    public function toggleComplete(Task $task)
+    {
+        $task->toggleComplete();
+        return redirect()->back()->with('success', 'Task updated succesfuly!');
+    }
+
     /**
      * Display a listing of the resource.
      */
